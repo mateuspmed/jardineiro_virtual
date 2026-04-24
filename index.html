@@ -1,462 +1,579 @@
 <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Catálogo de Plantas</title>
-        <style>
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f6f3; color: #333; }
-            .header { background-color: #386641; color: white; padding: 20px 30px; text-align: center; font-size: 28px; font-weight: bold; border-bottom: 5px solid #6A994E; background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path fill="%236A994E" d="M0 10 C 20 0, 40 0, 50 10 S 70 20, 90 10 S 100 10, 100 10" stroke-width="0.5" /></svg>'); background-repeat: repeat-x; background-position: bottom; }
-            .main-container { padding: 15px; }
-            .summary { background-color: #ffffff; padding: 20px; margin-bottom: 25px; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.05); }
-            .summary h2 { margin-top: 0; color: #386641; }
-            .summary p { margin: 5px 0 15px; font-size: 16px; }
-            .location-section h2 { font-size: 24px; color: #386641; border-bottom: 2px solid #6A994E; padding-bottom: 10px; margin-top: 20px; }
-            .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
-            .card { background-color: white; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.2s ease, box-shadow 0.2s ease; border-left: 10px solid; }
-            .card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px rgba(0,0,0,0.15); }
-            .card-img-top { width: 100%; height: 200px; object-fit: cover; background-color: #e9ecef; }
-            .card-img-placeholder { width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; font-size: 70px; color: #adb5bd; background-color: #e9ecef; }
-            .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-            .card-title { font-size: 20px; font-weight: 600; margin: 0 0 5px 0; color: #212529; }
-            .card-subtitle { font-size: 14px; font-style: italic; color: #6c757d; margin-bottom: 15px; }
-            .card-text { margin-bottom: 8px; font-size: 15px; line-height: 1.5; }
-            .card-text strong { color: #495057; }
-            .card-footer { margin-top: auto; padding-top: 15px; }
-            .btn { display: block; width: 100%; padding: 12px; background-color: #4CAF50; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: 500; font-size: 15px; transition: background-color 0.2s ease; }
-            .btn:hover { background-color: #45a049; }
-        </style>
-    </head>
-    <body>
-        <div class="header">&#127811; Catálogo de Plantas</div>
-        <div class="main-container">
-            <div class="summary">
-                <h2>Resumo do Catálogo</h2>
-<ul><li><strong>Calçada Externa:</strong> 5 planta(s)</li><li><strong>Corredor:</strong> 3 planta(s)</li><li><strong>Hortaliças:</strong> 5 planta(s)</li><li><strong>Jardim da Frente:</strong> 8 planta(s)</li><li><strong>Jardim de Trás:</strong> 16 planta(s)</li></ul><p><strong>Total de plantas com foto:</strong> 7</p></div>
-            <div class="location-section">
-                <h2>Calçada Externa</h2>
-                <div class="card-grid">
-        <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Alpínia</h5>
-                        <h6 class="card-subtitle">Alpinia purpurata</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Alpinia+purpurata&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Jabuticabeira</h5>
-                        <h6 class="card-subtitle">Plinia cauliflora</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Plinia+cauliflora&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Ipê Amarelo</h5>
-                        <h6 class="card-subtitle">Handroanthus albus</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Handroanthus+albus&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Ipê Rosa</h5>
-                        <h6 class="card-subtitle">Handroanthus impetiginosus</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Handroanthus+impetiginosus&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Ipê Branco</h5>
-                        <h6 class="card-subtitle">Tabebuia roseo-alba</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Tabebuia+roseo-alba&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
-            <div class="location-section">
-                <h2>Corredor</h2>
-                <div class="card-grid">
-        <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_madagascar.jpg" class="card-img-top" alt="Dracena Madagascar">
-                    <div class="card-body">
-                        <h5 class="card-title">Dracena Madagascar</h5>
-                        <h6 class="card-subtitle">Dracaena marginata</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Dracaena+marginata&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hera-roxa</h5>
-                        <h6 class="card-subtitle">Hemigraphis alternata</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Hemigraphis+alternata&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #ef6c00;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Helicônia Garrancho</h5>
-                        <h6 class="card-subtitle">Heliconia angusta</h6>
-                        <p class="card-text"><strong>Status:</strong> Alerta: Lesmas/Pontas Secas</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Heliconia+angusta&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
-            <div class="location-section">
-                <h2>Hortaliças</h2>
-                <div class="card-grid">
-        <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Hortelã</h5>
-                        <h6 class="card-subtitle">Mentha spicata</h6>
-                        <p class="card-text"><strong>Status:</strong> Viçosa</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Mentha+spicata&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Manjericão</h5>
-                        <h6 class="card-subtitle">Ocimum basilicum</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Ocimum+basilicum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #ef6c00;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Tomateiro</h5>
-                        <h6 class="card-subtitle">Solanum lycopersicum</h6>
-                        <p class="card-text"><strong>Status:</strong> Precisa Apoio</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Solanum+lycopersicum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Cebolinha</h5>
-                        <h6 class="card-subtitle">Allium fistulosum</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Allium+fistulosum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #c62828;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Pimenta Malagueta</h5>
-                        <h6 class="card-subtitle">Capsicum frutescens</h6>
-                        <p class="card-text"><strong>Status:</strong> Crítico: Seca</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Capsicum+frutescens&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
-            <div class="location-section">
-                <h2>Jardim da Frente</h2>
-                <div class="card-grid">
-        <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Onze-horas</h5>
-                        <h6 class="card-subtitle">Portulaca grandiflora</h6>
-                        <p class="card-text"><strong>Status:</strong> Floração Ativa</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Portulaca+grandiflora&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/pitangueira.jpg" class="card-img-top" alt="Pitangueira">
-                    <div class="card-body">
-                        <h5 class="card-title">Pitangueira</h5>
-                        <h6 class="card-subtitle">Eugenia uniflora</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Eugenia+uniflora&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/sapatinho_judia.jpg" class="card-img-top" alt="Sapatinho de Judia">
-                    <div class="card-body">
-                        <h5 class="card-title">Sapatinho de Judia</h5>
-                        <h6 class="card-subtitle">Thunbergia mysorensis</h6>
-                        <p class="card-text"><strong>Status:</strong> Ativa</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Thunbergia+mysorensis&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/goiabeira.jpg" class="card-img-top" alt="Goiabeira">
-                    <div class="card-body">
-                        <h5 class="card-title">Goiabeira</h5>
-                        <h6 class="card-subtitle">Psidium guajava</h6>
-                        <p class="card-text"><strong>Status:</strong> Com Frutos</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Psidium+guajava&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Palmeira Jerivá</h5>
-                        <h6 class="card-subtitle">Syagrus romanzoffiana</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Syagrus+romanzoffiana&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/yucca.jpg" class="card-img-top" alt="Yucca">
-                    <div class="card-body">
-                        <h5 class="card-title">Yucca</h5>
-                        <h6 class="card-subtitle">Yucca gigantea</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Yucca+gigantea&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dolar_variegado.jpg" class="card-img-top" alt="Dólar Variegado">
-                    <div class="card-body">
-                        <h5 class="card-title">Dólar Variegado</h5>
-                        <h6 class="card-subtitle">Plectranthus coleoides</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Plectranthus+coleoides&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/cacto_macarrao.jpg" class="card-img-top" alt="Cacto Macarrão">
-                    <div class="card-body">
-                        <h5 class="card-title">Cacto Macarrão</h5>
-                        <h6 class="card-subtitle">Rhipsalis baccifera</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Rhipsalis+baccifera&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            </div></div>
-            <div class="location-section">
-                <h2>Jardim de Trás</h2>
-                <div class="card-grid">
-        <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Clusia</h5>
-                        <h6 class="card-subtitle">Clusia rosea</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Clusia+rosea&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Bromélia Imperial</h5>
-                        <h6 class="card-subtitle">Alcantarea imperialis</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Alcantarea+imperialis&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Babosa</h5>
-                        <h6 class="card-subtitle">Aloe vera</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Aloe+vera&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Agave Atenuata</h5>
-                        <h6 class="card-subtitle">Agave attenuata</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Agave+attenuata&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #ef6c00;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Helicônia</h5>
-                        <h6 class="card-subtitle">Heliconia psittacorum</h6>
-                        <p class="card-text"><strong>Status:</strong> Verificar Manchas</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Heliconia+psittacorum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Cróton</h5>
-                        <h6 class="card-subtitle">Codiaeum variegatum</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Codiaeum+variegatum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Guaimbê</h5>
-                        <h6 class="card-subtitle">Philodendron bipinnatifidum</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Philodendron+bipinnatifidum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Costela-de-Adão</h5>
-                        <h6 class="card-subtitle">Monstera deliciosa</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Monstera+deliciosa&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Orelha-de-Elefante</h5>
-                        <h6 class="card-subtitle">Alocasia macrorrhizos</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Alocasia+macrorrhizos&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Dracena Fragrans</h5>
-                        <h6 class="card-subtitle">Dracaena fragrans</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Dracaena+fragrans&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Iresine</h5>
-                        <h6 class="card-subtitle">Iresine herbstii</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Iresine+herbstii&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Lírio da Paz</h5>
-                        <h6 class="card-subtitle">Spathiphyllum wallisii</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Spathiphyllum+wallisii&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Jiboia</h5>
-                        <h6 class="card-subtitle">Epipremnum aureum</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Epipremnum+aureum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Antúrio Vermelho</h5>
-                        <h6 class="card-subtitle">Anthurium andraeanum</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Anthurium+andraeanum&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Dracena Chocolate</h5>
-                        <h6 class="card-subtitle">Cordyline fruticosa</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Cordyline+fruticosa&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            <div class="card" style="border-left-color: #2e7d32;"><div class="card-img-placeholder">&#127811;</div>
-                    <div class="card-body">
-                        <h5 class="card-title">Léia-rubra</h5>
-                        <h6 class="card-subtitle">Leea guineensis</h6>
-                        <p class="card-text"><strong>Status:</strong> Saudável</p>
-                        <p class="card-text"><small><strong>Atualizado em:</strong> 23/04/2026</small></p>
-                        <div class="card-footer">
-                            <a href="https://www.google.com/search?q=Leea+guineensis&tbm=isch" target="_blank" class="btn">Ver Google Imagens</a>
-                        </div>
-                    </div>
-                </div>
-            </div></div></div></body></html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Relatório de Plantas do Jardineiro Virtual</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f2f5;
+            color: #1c1e21;
+            margin: 0;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            color: #2c5e3A;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #e0e0e0;
+        }
+        .card-content {
+            padding: 15px;
+        }
+        .card-content h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.25em;
+            color: #333;
+        }
+        .card-content p {
+            margin: 4px 0;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .card-content p strong {
+            color: #333;
+        }
+        .status-badge {
+            padding: 5px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: #fff;
+            text-align: center;
+            margin-top: 10px;
+            display: inline-block;
+        }
+        .status-saudavel { background-color: #4CAF50; }
+        .status-alerta { background-color: #FFC107; color: #000; }
+        .status-critico { background-color: #F44336; }
+        .status-info { background-color: #2196F3; }
+        .status-default { background-color: #9E9E9E; }
+        .location-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            padding: 5px 8px;
+            border-radius: 5px;
+            font-size: 0.8em;
+        }
+         .card-image-container {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Catálogo do Jardim</h1>
+        <p>Relatório gerado em 23/04/2026</p>
+    </header>
+    <div class="container">
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Clusia" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>1. Clusia</h3>
+                <p><strong>Nome Científico:</strong> <em>Clusia rosea</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Bromélia Imperial" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>2. Bromélia Imperial</h3>
+                <p><strong>Nome Científico:</strong> <em>Alcantarea imperialis</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Babosa" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>3. Babosa</h3>
+                <p><strong>Nome Científico:</strong> <em>Aloe vera</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Agave Atenuata" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>4. Agave Atenuata</h3>
+                <p><strong>Nome Científico:</strong> <em>Agave attenuata</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Helicônia" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>5. Helicônia</h3>
+                <p><strong>Nome Científico:</strong> <em>Heliconia psittacorum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-alerta">Verificar Manchas</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Cróton" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>6. Cróton</h3>
+                <p><strong>Nome Científico:</strong> <em>Codiaeum variegatum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Guaimbê" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>7. Guaimbê</h3>
+                <p><strong>Nome Científico:</strong> <em>Philodendron bipinnatifidum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Costela-de-Adão" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>8. Costela-de-Adão</h3>
+                <p><strong>Nome Científico:</strong> <em>Monstera deliciosa</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Orelha-de-Elefante" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>9. Orelha-de-Elefante</h3>
+                <p><strong>Nome Científico:</strong> <em>Alocasia macrorrhizos</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Dracena Fragrans" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>10. Dracena Fragrans</h3>
+                <p><strong>Nome Científico:</strong> <em>Dracaena fragrans</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Iresine" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>11. Iresine</h3>
+                <p><strong>Nome Científico:</strong> <em>Iresine herbstii</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Lírio da Paz" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>12. Lírio da Paz</h3>
+                <p><strong>Nome Científico:</strong> <em>Spathiphyllum wallisii</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Jiboia" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>13. Jiboia</h3>
+                <p><strong>Nome Científico:</strong> <em>Epipremnum aureum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/anturio_vermelho.jpg" alt="Foto de Antúrio Vermelho" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>14. Antúrio Vermelho</h3>
+                <p><strong>Nome Científico:</strong> <em>Anthurium andraeanum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Dracena Chocolate" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>15. Dracena Chocolate</h3>
+                <p><strong>Nome Científico:</strong> <em>Cordyline fruticosa</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Léia-rubra" class="card-image">
+                 <span class="location-badge">Jardim de Trás</span>
+            </div>
+            <div class="card-content">
+                <h3>16. Léia-rubra</h3>
+                <p><strong>Nome Científico:</strong> <em>Leea guineensis</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Onze-horas" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>17. Onze-horas</h3>
+                <p><strong>Nome Científico:</strong> <em>Portulaca grandiflora</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-info">Floração Ativa</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/pitangueira.jpg" alt="Foto de Pitangueira" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>18. Pitangueira</h3>
+                <p><strong>Nome Científico:</strong> <em>Eugenia uniflora</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/sapatinho_judia.jpg" alt="Foto de Sapatinho de Judia" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>19. Sapatinho de Judia</h3>
+                <p><strong>Nome Científico:</strong> <em>Thunbergia mysorensis</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Ativa</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/goiabeira.jpg" alt="Foto de Goiabeira" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>20. Goiabeira</h3>
+                <p><strong>Nome Científico:</strong> <em>Psidium guajava</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-info">Com Frutos</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Palmeira Jerivá" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>21. Palmeira Jerivá</h3>
+                <p><strong>Nome Científico:</strong> <em>Syagrus romanzoffiana</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/yucca.jpg" alt="Foto de Yucca" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>22. Yucca</h3>
+                <p><strong>Nome Científico:</strong> <em>Yucca gigantea</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dolar_variegado.jpg" alt="Foto de Dólar Variegado" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>23. Dólar Variegado</h3>
+                <p><strong>Nome Científico:</strong> <em>Plectranthus coleoides</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/cacto_macarrao.jpg" alt="Foto de Cacto Macarrão" class="card-image">
+                 <span class="location-badge">Jardim da Frente</span>
+            </div>
+            <div class="card-content">
+                <h3>24. Cacto Macarrão</h3>
+                <p><strong>Nome Científico:</strong> <em>Rhipsalis baccifera</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_madagascar.jpg" alt="Foto de Dracena Madagascar" class="card-image">
+                 <span class="location-badge">Corredor</span>
+            </div>
+            <div class="card-content">
+                <h3>25. Dracena Madagascar</h3>
+                <p><strong>Nome Científico:</strong> <em>Dracaena marginata</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Hera-roxa" class="card-image">
+                 <span class="location-badge">Corredor</span>
+            </div>
+            <div class="card-content">
+                <h3>26. Hera-roxa</h3>
+                <p><strong>Nome Científico:</strong> <em>Hemigraphis alternata</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Helicônia Garrancho" class="card-image">
+                 <span class="location-badge">Corredor</span>
+            </div>
+            <div class="card-content">
+                <h3>27. Helicônia Garrancho</h3>
+                <p><strong>Nome Científico:</strong> <em>Heliconia angusta</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-alerta">Alerta: Lesmas/Pontas Secas</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Hortelã" class="card-image">
+                 <span class="location-badge">Hortaliças</span>
+            </div>
+            <div class="card-content">
+                <h3>28. Hortelã</h3>
+                <p><strong>Nome Científico:</strong> <em>Mentha spicata</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Viçosa</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Manjericão" class="card-image">
+                 <span class="location-badge">Hortaliças</span>
+            </div>
+            <div class="card-content">
+                <h3>29. Manjericão</h3>
+                <p><strong>Nome Científico:</strong> <em>Ocimum basilicum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Tomateiro" class="card-image">
+                 <span class="location-badge">Hortaliças</span>
+            </div>
+            <div class="card-content">
+                <h3>30. Tomateiro</h3>
+                <p><strong>Nome Científico:</strong> <em>Solanum lycopersicum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-default">Precisa Apoio</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Cebolinha" class="card-image">
+                 <span class="location-badge">Hortaliças</span>
+            </div>
+            <div class="card-content">
+                <h3>31. Cebolinha</h3>
+                <p><strong>Nome Científico:</strong> <em>Allium fistulosum</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Pimenta Malagueta" class="card-image">
+                 <span class="location-badge">Hortaliças</span>
+            </div>
+            <div class="card-content">
+                <h3>32. Pimenta Malagueta</h3>
+                <p><strong>Nome Científico:</strong> <em>Capsicum frutescens</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-critico">Crítico: Seca</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Alpínia" class="card-image">
+                 <span class="location-badge">Calçada Externa</span>
+            </div>
+            <div class="card-content">
+                <h3>33. Alpínia</h3>
+                <p><strong>Nome Científico:</strong> <em>Alpinia purpurata</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Jabuticabeira" class="card-image">
+                 <span class="location-badge">Calçada Externa</span>
+            </div>
+            <div class="card-content">
+                <h3>34. Jabuticabeira</h3>
+                <p><strong>Nome Científico:</strong> <em>Plinia cauliflora</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Ipê Amarelo" class="card-image">
+                 <span class="location-badge">Calçada Externa</span>
+            </div>
+            <div class="card-content">
+                <h3>35. Ipê Amarelo</h3>
+                <p><strong>Nome Científico:</strong> <em>Handroanthus albus</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Ipê Rosa" class="card-image">
+                 <span class="location-badge">Calçada Externa</span>
+            </div>
+            <div class="card-content">
+                <h3>36. Ipê Rosa</h3>
+                <p><strong>Nome Científico:</strong> <em>Handroanthus impetiginosus</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-image-container">
+                 <img src="https://i.imgur.com/s1w6p5m.png" alt="Foto de Ipê Branco" class="card-image">
+                 <span class="location-badge">Calçada Externa</span>
+            </div>
+            <div class="card-content">
+                <h3>37. Ipê Branco</h3>
+                <p><strong>Nome Científico:</strong> <em>Tabebuia roseo-alba</em></p>
+                <p><strong>Última Atualização:</strong> 23/04/2026</p>
+                <div class="status-badge status-saudavel">Saudável</div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
