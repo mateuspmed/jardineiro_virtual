@@ -1,132 +1,171 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Plantas - Relatório Dinâmico</title>
+    <title>Catálogo de Plantas</title>
     <style>
-        :root {
-            --primary-color: #2E8B57; /* Verde Mar Floresta */
-            --secondary-color: #3CB371; /* Verde Mar Médio */
-            --alert-color: #FFA500; /* Laranja */
-            --critical-color: #DC143C; /* Vermelho Carmesim */
-            --background-color: #F0F8F0; /* Verde Menta Mel */
-            --card-background: #FFFFFF;
-            --text-color: #333;
-            --header-text-color: #FFFFFF;
-            --border-color: #DDDDDD;
-            --box-shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #F0F8F0;
             margin: 0;
             padding: 20px;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            color: #333;
         }
-
         .container {
-            max-width: 1400px;
-            margin: auto;
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
-
         h1, h2 {
-            color: var(--primary-color);
+            color: #2E8B57;
             text-align: center;
+            border-bottom: 2px solid #D3D3D3;
             padding-bottom: 10px;
+        }
+        h2 {
+            margin-top: 40px;
+        }
+        .controls {
+            text-align: center;
             margin-bottom: 20px;
         }
-        
-        h1 { border-bottom: 2px solid var(--primary-color); }
-        h2.location-header { border-bottom: 1px solid var(--secondary-color); margin-top: 40px; }
-
-        .controls {
-            padding: 20px;
-            background-color: var(--card-background);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px var(--box-shadow-color);
-            margin-bottom: 25px;
+        #searchInput {
+            width: 50%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
         }
-
-        .search-box {
-            width: 100%; box-sizing: border-box; padding: 12px;
-            border: 1px solid var(--border-color); border-radius: 5px; font-size: 16px;
-        }
-        
         .summary-section {
-            padding: 25px; background-color: var(--card-background);
-            border-radius: 8px; box-shadow: 0 4px 12px var(--box-shadow-color);
-            margin-bottom: 25px;
-        }
-        .summary-section h2 { margin-top: 0; }
-        
-        .summary-table-container {
+            margin: 30px auto;
             display: flex;
             justify-content: center;
         }
-
         .summary-table {
             border-collapse: collapse;
-            margin-top: 15px;
             width: 80%;
-            max-width: 800px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+            margin: 0 auto;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
-        .summary-table thead tr { background-color: var(--primary-color); color: white; text-align: center; }
-        .summary-table th, .summary-table td { padding: 12px 15px; border: 1px solid var(--border-color); }
-        .summary-table tbody tr { border-bottom: 1px solid #f0f0f0; }
-        .summary-table tbody tr:nth-of-type(even) { background-color: #f9f9f9; }
-        .summary-table tbody tr:hover { background-color: #f1f1f1; }
-
-        .cards-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
-
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #3CB371;
+            color: white;
+            text-align: center;
+        }
+        .summary-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .summary-table td:not(:first-child) {
+            text-align: center;
+        }
+        .location-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
         .plant-card {
-            background-color: var(--card-background); border: 1px solid var(--border-color);
-            border-radius: 8px; box-shadow: 0 4px 8px var(--box-shadow-color);
-            width: 280px; display: flex; flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
         }
-        .plant-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px var(--box-shadow-color); }
-
+        .plant-card:hover {
+            transform: translateY(-5px);
+        }
         .card-image-container {
-            width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;
-            background-color: #f0f0f0; border-top-left-radius: 8px; border-top-right-radius: 8px; overflow: hidden;
+            width: 100%;
+            height: 200px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #888;
         }
-        .card-image-container img { width: 100%; height: 100%; object-fit: cover; }
-        .no-photo { font-style: italic; color: #888; }
-        
-        .card-content { padding: 15px; flex-grow: 1; }
-        .card-content h3 { margin-top: 0; color: var(--primary-color); }
-        .card-content p { margin: 5px 0; font-size: 14px; }
-        .card-content .scientific-name { font-style: italic; color: #555; }
-        .card-content .update-date { font-size: 12px; color: #777; }
-        
-        .card-footer { padding: 15px; border-top: 1px solid #eee; }
-        .search-btn {
-            background-color: #4A90E2; color: white; padding: 8px 12px; border: none;
-            border-radius: 4px; text-decoration: none; font-size: 14px;
-            cursor: pointer; display: block; text-align: center;
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
-        .search-btn:hover { background-color: #357ABD; }
-        
-        .status { font-weight: bold; }
-        .status.alerta { color: var(--alert-color); }
-        .status.critico { color: var(--critical-color); }
+        .card-content {
+            padding: 15px;
+            flex-grow: 1;
+        }
+        .card-content h3 {
+            margin-top: 0;
+            margin-bottom: 5px;
+            color: #2E8B57;
+        }
+        .card-content p {
+            margin: 5px 0;
+        }
+        .card-content .scientific-name {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
+        }
+        .card-content .status {
+            font-weight: bold;
+            padding: 3px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-top: 10px;
+        }
+        .status.alerta { background-color: #FFC107; color: #333; }
+        .status.critico { background-color: #DC3545; color: white; }
+        .status.manchas { background-color: #FF9800; color: white; }
+        .status.saudavel { background-color: #28A745; color: white; }
+        .status.default { background-color: #6C757D; color: white; }
+
+        .card-footer {
+            padding: 10px 15px;
+            background-color: #f7f7f7;
+            border-top: 1px solid #eee;
+            text-align: center;
+        }
+        .card-footer a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #3CB371;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.2s;
+        }
+        .card-footer a:hover {
+            background-color: #2E8B57;
+        }
     </style>
 </head>
 <body>
 
     <div class="container">
         <h1>Catálogo de Plantas</h1>
-
+        
         <div class="controls">
-            <input type="text" id="searchInput" class="search-box" onkeyup="filterContent()" placeholder="Pesquisar por nome, local ou status...">
+            <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Buscar por nome ou localização...">
         </div>
 
-        <div id="summary-container" class="summary-section"></div>
-        
-        <div id="sections-container"></div>
+        <div class="summary-section" id="summarySection">
+            <!-- Tabela de resumo será gerada aqui -->
+        </div>
+
+        <main id="catalogBody">
+            <!-- Seções e cards serão gerados aqui -->
+        </main>
     </div>
 
     <script>
@@ -170,73 +209,124 @@
           { "id": 37, "nome_popular": "Ipê Branco", "nome_cientifico": "Tabebuia roseo-alba", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" }
         ];
 
-        const groupDataByLocation = () => plantData.reduce((acc, plant) => {
-            (acc[plant.localizacao] = acc[plant.localizacao] || []).push(plant);
-            return acc;
-        }, {});
+        document.addEventListener('DOMContentLoaded', () => {
+            generateSummary(plantData);
+            generateContent(plantData);
+        });
 
-        const generateSummary = () => {
-            const summaryContainer = document.getElementById('summary-container');
-            const dataByLocation = groupDataByLocation();
-            
-            let summaryHTML = '<h2>Resumo do Jardim</h2><div class="summary-table-container"><table class="summary-table"><thead><tr><th>Localização</th><th>Plantas Mapeadas</th><th>Com Foto de Capa</th><th>Plantas com Alerta</th></tr></thead><tbody>';
-            
-            for (const location in dataByLocation) {
-                const plants = dataByLocation[location];
-                const withAlert = plants.filter(p => /alerta|crítico|manchas|seca/i.test(p.status)).length;
-                summaryHTML += `<tr><td>${location}</td><td>${plants.length}</td><td>${plants.filter(p => p.link_foto_real).length}</td><td>${withAlert}</td></tr>`;
-            }
-            
-            summaryHTML += '</tbody></table></div>';
-            summaryContainer.innerHTML = summaryHTML;
-        };
-        
-        const generateSections = () => {
-            const sectionsContainer = document.getElementById('sections-container');
-            sectionsContainer.innerHTML = '';
-            const dataByLocation = groupDataByLocation();
-            
-            for (const location in dataByLocation) {
-                let sectionHTML = `<h2 class="location-header">${location}</h2><div class="cards-container">`;
+        function getStatusClass(status) {
+            const lowerCaseStatus = status.toLowerCase();
+            if (lowerCaseStatus.includes('crítico')) return 'critico';
+            if (lowerCaseStatus.includes('alerta')) return 'alerta';
+            if (lowerCaseStatus.includes('manchas')) return 'manchas';
+            if (lowerCaseStatus.includes('seca')) return 'critico';
+            if (lowerCaseStatus.includes('saudável')) return 'saudavel';
+            return 'default';
+        }
+
+        function generateSummary(data) {
+            const summarySection = document.getElementById('summarySection');
+            const locations = [...new Set(data.map(item => item.localizacao))].sort();
+            const alertKeywords = ["alerta", "crítico", "manchas", "seca"];
+
+            let tableHTML = `
+                <table class="summary-table">
+                    <thead>
+                        <tr>
+                            <th>Localização</th>
+                            <th>Plantas Mapeadas</th>
+                            <th>Com Foto de Capa</th>
+                            <th>Plantas com Alerta</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+            `;
+
+            locations.forEach(location => {
+                const plantsInLocation = data.filter(p => p.localizacao === location);
+                const totalPlants = plantsInLocation.length;
+                const withCoverPhoto = plantsInLocation.filter(p => p.link_foto_real).length;
+                const withAlert = plantsInLocation.filter(p => alertKeywords.some(key => p.status.toLowerCase().includes(key))).length;
                 
-                for (const plant of dataByLocation[location]) {
-                    const encodedName = encodeURIComponent(plant.nome_cientifico);
-                    let statusClass = '';
-                    if (/alerta/i.test(plant.status)) statusClass = 'alerta';
-                    if (/crítico|seca/i.test(plant.status)) statusClass = 'critico';
+                tableHTML += `
+                    <tr>
+                        <td>${location}</td>
+                        <td>${totalPlants}</td>
+                        <td>${withCoverPhoto}</td>
+                        <td>${withAlert}</td>
+                    </tr>
+                `;
+            });
+
+            tableHTML += `
+                    </tbody>
+                </table>
+            `;
+            summarySection.innerHTML = tableHTML;
+        }
+
+        function generateContent(data) {
+            const catalogBody = document.getElementById('catalogBody');
+            catalogBody.innerHTML = "";
+            const groupedByLocation = data.reduce((acc, plant) => {
+                (acc[plant.localizacao] = acc[plant.localizacao] || []).push(plant);
+                return acc;
+            }, {});
+
+            const sortedLocations = Object.keys(groupedByLocation).sort();
+
+            sortedLocations.forEach(location => {
+                let sectionHTML = `
+                    <section>
+                        <h2>${location}</h2>
+                        <div class="location-section" id="location-${location.replace(/\s+/g, '-')}">
+                `;
+
+                groupedByLocation[location].forEach(plant => {
+                    const statusClass = getStatusClass(plant.status);
                     
                     sectionHTML += `
-                        <div class="plant-card" data-filter-content="${Object.values(plant).join(' ').toLowerCase()}">
+                        <div class="plant-card" data-search-term="${plant.nome_popular.toLowerCase()} ${plant.nome_cientifico.toLowerCase()} ${plant.localizacao.toLowerCase()}">
                             <div class="card-image-container">
-                                ${plant.link_foto_real ? `<img src="${plant.link_foto_real}" alt="${plant.nome_popular}">` : '<span class="no-photo">Sem Foto</span>'}
+                                ${plant.link_foto_real 
+                                    ? `<img src="${plant.link_foto_real}" alt="Foto de ${plant.nome_popular}">` 
+                                    : '<span>Sem Foto</span>'}
                             </div>
                             <div class="card-content">
                                 <h3>${plant.nome_popular}</h3>
                                 <p class="scientific-name">${plant.nome_cientifico}</p>
                                 <p><strong>Status:</strong> <span class="status ${statusClass}">${plant.status}</span></p>
-                                <p class="update-date">Atualizado em: ${plant.ultima_atualizacao}</p>
+                                <p><small>Atualizado em: ${plant.ultima_atualizacao}</small></p>
                             </div>
                             <div class="card-footer">
-                                <a href="https://www.google.com/search?tbm=isch&q=${encodedName}" target="_blank" class="search-btn">Ver Imagens</a>
+                                <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(plant.nome_cientifico)}" target="_blank" rel="noopener noreferrer">Ver Imagens</a>
                             </div>
-                        </div>`;
-                }
-                
-                sectionsContainer.innerHTML += sectionHTML + '</div>';
-            }
-        };
+                        </div>
+                    `;
+                });
 
-        const filterContent = () => {
-            const filter = document.getElementById('searchInput').value.toLowerCase();
-            document.querySelectorAll('.plant-card').forEach(card => {
-                card.style.display = card.getAttribute('data-filter-content').includes(filter) ? '' : 'none';
+                sectionHTML += `
+                        </div>
+                    </section>
+                `;
+                catalogBody.innerHTML += sectionHTML;
             });
-        };
+        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            generateSummary();
-            generateSections();
-        });
+        function filterContent() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const cards = document.querySelectorAll('.plant-card');
+
+            cards.forEach(card => {
+                const searchTerm = card.getAttribute('data-search-term');
+                if (searchTerm.includes(filter)) {
+                    card.style.display = "";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
     </script>
 </body>
 </html>
