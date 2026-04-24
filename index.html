@@ -1,236 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Relatório Interativo de Plantas</title>
-    <style>
-        :root {
-            --primary-color: #2E8B57; /* Verde Mar Floresta */
-            --secondary-color: #3CB371; /* Verde Mar Médio */
-            --background-color: #F0F8F0; /* Verde Menta Mel */
-            --text-color: #333;
-            --header-text-color: #FFFFFF;
-            --table-border-color: #DDDDDD;
-            --table-hover-color: #E9F5E9;
-            --box-shadow-color: rgba(0, 0, 0, 0.1);
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: var(--background-color);
-            color: var(--text-color);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: auto;
-            background-color: white;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px var(--box-shadow-color);
-        }
-
-        h1 {
-            color: var(--primary-color);
-            text-align: center;
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-
-        .controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 25px;
-            align-items: center;
-        }
-
-        .search-box {
-            flex-grow: 1;
-            padding: 10px;
-            border: 1px solid var(--table-border-color);
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        
-        .search-box:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 5px rgba(46, 139, 87, 0.5);
-        }
-        
-        .table-wrapper {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            border: 1px solid var(--table-border-color);
-            padding: 12px 15px;
-            text-align: left;
-            vertical-align: middle;
-        }
-
-        thead {
-            background-color: var(--secondary-color);
-            color: var(--header-text-color);
-        }
-
-        tr:nth-child(even) {
-            background-color: #f9f9f9;
-        }
-
-        tr:hover {
-            background-color: var(--table-hover-color);
-        }
-
-        img {
-            max-width: 80px;
-            max-height: 80px;
-            border-radius: 5px;
-            display: block;
-            margin: auto;
-            transition: transform 0.2s;
-        }
-        
-        img:hover {
-            transform: scale(1.5);
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        a:hover {
-            text-decoration: underline;
-        }
-        
-        .status-cell {
-            font-weight: bold;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Catálogo Interativo de Plantas</h1>
-
-        <div class="controls">
-            <input type="text" id="searchInput" class="search-box" onkeyup="filterTable()" placeholder="Pesquisar por nome, local ou status...">
-        </div>
-        
-        <div class="table-wrapper">
-            <table id="plantTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Foto</th>
-                        <th>Nome Popular</th>
-                        <th>Nome Científico</th>
-                        <th>Localização</th>
-                        <th class="status-cell">Status</th>
-                        <th>Última Atualização</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- As linhas da tabela serão preenchidas com JavaScript -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        const plantData = [
-          { "id": 1, "nome_popular": "Clusia", "nome_cientifico": "Clusia rosea", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 2, "nome_popular": "Bromélia Imperial", "nome_cientifico": "Alcantarea imperialis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 3, "nome_popular": "Babosa", "nome_cientifico": "Aloe vera", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 4, "nome_popular": "Agave Atenuata", "nome_cientifico": "Agave attenuata", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 5, "nome_popular": "Helicônia", "nome_cientifico": "Heliconia psittacorum", "localizacao": "Jardim de Trás", "status": "Verificar Manchas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 6, "nome_popular": "Cróton", "nome_cientifico": "Codiaeum variegatum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 7, "nome_popular": "Guaimbê", "nome_cientifico": "Philodendron bipinnatifidum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 8, "nome_popular": "Costela-de-Adão", "nome_cientifico": "Monstera deliciosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 9, "nome_popular": "Orelha-de-Elefante", "nome_cientifico": "Alocasia macrorrhizos", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 10, "nome_popular": "Dracena Fragrans", "nome_cientifico": "Dracaena fragrans", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 11, "nome_popular": "Iresine", "nome_cientifico": "Iresine herbstii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 12, "nome_popular": "Lírio da Paz", "nome_cientifico": "Spathiphyllum wallisii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 13, "nome_popular": "Jiboia", "nome_cientifico": "Epipremnum aureum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 14, "nome_popular": "Antúrio Vermelho", "nome_cientifico": "Anthurium andraeanum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/anturio_vermelho.jpeg" },
-          { "id": 15, "nome_popular": "Dracena Chocolate", "nome_cientifico": "Cordyline fruticosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 16, "nome_popular": "Léia-rubra", "nome_cientifico": "Leea guineensis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 17, "nome_popular": "Onze-horas", "nome_cientifico": "Portulaca grandiflora", "localizacao": "Jardim da Frente", "status": "Floração Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 18, "nome_popular": "Pitangueira", "nome_cientifico": "Eugenia uniflora", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/pitangueira.jpg" },
-          { "id": 19, "nome_popular": "Sapatinho de Judia", "nome_cientifico": "Thunbergia mysorensis", "localizacao": "Jardim da Frente", "status": "Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/sapatinho_judia.jpg" },
-          { "id": 20, "nome_popular": "Goiabeira", "nome_cientifico": "Psidium guajava", "localizacao": "Jardim da Frente", "status": "Com Frutos", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/goiabeira.jpg" },
-          { "id": 21, "nome_popular": "Palmeira Jerivá", "nome_cientifico": "Syagrus romanzoffiana", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 22, "nome_popular": "Yucca", "nome_cientifico": "Yucca gigantea", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/yucca.jpg" },
-          { "id": 23, "nome_popular": "Dólar Variegado", "nome_cientifico": "Plectranthus coleoides", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dolar_variegado.jpg" },
-          { "id": 24, "nome_popular": "Cacto Macarrão", "nome_cientifico": "Rhipsalis baccifera", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/cacto_macarrao.jpg" },
-          { "id": 25, "nome_popular": "Dracena Madagascar", "nome_cientifico": "Dracaena marginata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_madagascar.jpg" },
-          { "id": 26, "nome_popular": "Hera-roxa", "nome_cientifico": "Hemigraphis alternata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 27, "nome_popular": "Helicônia Garrancho", "nome_cientifico": "Heliconia angusta", "localizacao": "Corredor", "status": "Alerta: Lesmas/Pontas Secas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 28, "nome_popular": "Hortelã", "nome_cientifico": "Mentha spicata", "localizacao": "Hortaliças", "status": "Viçosa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 29, "nome_popular": "Manjericão", "nome_cientifico": "Ocimum basilicum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 30, "nome_popular": "Tomateiro", "nome_cientifico": "Solanum lycopersicum", "localizacao": "Hortaliças", "status": "Precisa Apoio", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 31, "nome_popular": "Cebolinha", "nome_cientifico": "Allium fistulosum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 32, "nome_popular": "Pimenta Malagueta", "nome_cientifico": "Capsicum frutescens", "localizacao": "Hortaliças", "status": "Crítico: Seca", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 33, "nome_popular": "Alpínia", "nome_cientifico": "Alpinia purpurata", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 34, "nome_popular": "Jabuticabeira", "nome_cientifico": "Plinia cauliflora", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 35, "nome_popular": "Ipê Amarelo", "nome_cientifico": "Handroanthus albus", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 36, "nome_popular": "Ipê Rosa", "nome_cientifico": "Handroanthus impetiginosus", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 37, "nome_popular": "Ipê Branco", "nome_cientifico": "Tabebuia roseo-alba", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" }
-        ];
-
-        function populateTable(data) {
-            const tableBody = document.getElementById('plantTable').getElementsByTagName('tbody')[0];
-            tableBody.innerHTML = ''; // Limpa a tabela antes de preencher
-            
-            data.forEach(plant => {
-                let row = tableBody.insertRow();
-                row.insertCell(0).innerHTML = plant.id;
-                
-                let photoCell = row.insertCell(1);
-                if (plant.link_foto_real) {
-                    photoCell.innerHTML = `<a href='${plant.link_foto_real}' target='_blank'><img src='${plant.link_foto_real}' alt='${plant.nome_popular}'></a>`;
-                } else {
-                    photoCell.innerHTML = 'Sem foto';
-                }
-                
-                row.insertCell(2).innerHTML = plant.nome_popular;
-                row.insertCell(3).innerHTML = `<i>${plant.nome_cientifico}</i>`;
-                row.insertCell(4).innerHTML = plant.localizacao;
-                row.insertCell(5).innerHTML = plant.status;
-                row.insertCell(6).innerHTML = plant.ultima_atualizacao;
-            });
-        }
-
-        function filterTable() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toUpperCase();
-            
-            const filteredData = plantData.filter(plant => {
-                return plant.nome_popular.toUpperCase().includes(filter) ||
-                       plant.nome_cientifico.toUpperCase().includes(filter) ||
-                       plant.localizacao.toUpperCase().includes(filter) ||
-                       plant.status.toUpperCase().includes(filter);
-            });
-            
-            populateTable(filteredData);
-        }
-
-        // Preenche a tabela na carga inicial da página
-        document.addEventListener('DOMContentLoaded', () => {
-            populateTable(plantData);
-        });
-    </script>
-</body>
-</html>
+[
+  { "id": 1, "nome_popular": "Clusia", "nome_cientifico": "Clusia rosea", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 2, "nome_popular": "Bromélia Imperial", "nome_cientifico": "Alcantarea imperialis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 3, "nome_popular": "Babosa", "nome_cientifico": "Aloe vera", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 4, "nome_popular": "Agave Atenuata", "nome_cientifico": "Agave attenuata", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 5, "nome_popular": "Helicônia", "nome_cientifico": "Heliconia psittacorum", "localizacao": "Jardim de Trás", "status": "Verificar Manchas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 6, "nome_popular": "Cróton", "nome_cientifico": "Codiaeum variegatum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 7, "nome_popular": "Guaimbê", "nome_cientifico": "Philodendron bipinnatifidum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 8, "nome_popular": "Costela-de-Adão", "nome_cientifico": "Monstera deliciosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 9, "nome_popular": "Orelha-de-Elefante", "nome_cientifico": "Alocasia macrorrhizos", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 10, "nome_popular": "Dracena Fragrans", "nome_cientifico": "Dracaena fragrans", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 11, "nome_popular": "Iresine", "nome_cientifico": "Iresine herbstii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 12, "nome_popular": "Lírio da Paz", "nome_cientifico": "Spathiphyllum wallisii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 13, "nome_popular": "Jiboia", "nome_cientifico": "Epipremnum aureum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 14, "nome_popular": "Antúrio Vermelho", "nome_cientifico": "Anthurium andraeanum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/anturio_vermelho.jpeg" },
+  { "id": 15, "nome_popular": "Dracena Chocolate", "nome_cientifico": "Cordyline fruticosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 16, "nome_popular": "Léia-rubra", "nome_cientifico": "Leea guineensis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 17, "nome_popular": "Onze-horas", "nome_cientifico": "Portulaca grandiflora", "localizacao": "Jardim da Frente", "status": "Floração Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 18, "nome_popular": "Pitangueira", "nome_cientifico": "Eugenia uniflora", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/pitangueira.jpg" },
+  { "id": 19, "nome_popular": "Sapatinho de Judia", "nome_cientifico": "Thunbergia mysorensis", "localizacao": "Jardim da Frente", "status": "Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/sapatinho_judia.jpg" },
+  { "id": 20, "nome_popular": "Goiabeira", "nome_cientifico": "Psidium guajava", "localizacao": "Jardim da Frente", "status": "Com Frutos", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/goiabeira.jpg" },
+  { "id": 21, "nome_popular": "Palmeira Jerivá", "nome_cientifico": "Syagrus romanzoffiana", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 22, "nome_popular": "Yucca", "nome_cientifico": "Yucca gigantea", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/yucca.jpg" },
+  { "id": 23, "nome_popular": "Dólar Variegado", "nome_cientifico": "Plectranthus coleoides", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dolar_variegado.jpg" },
+  { "id": 24, "nome_popular": "Cacto Macarrão", "nome_cientifico": "Rhipsalis baccifera", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/cacto_macarrao.jpg" },
+  { "id": 25, "nome_popular": "Dracena Madagascar", "nome_cientifico": "Dracaena marginata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_madagascar.jpg" },
+  { "id": 26, "nome_popular": "Hera-roxa", "nome_cientifico": "Hemigraphis alternata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 27, "nome_popular": "Helicônia Garrancho", "nome_cientifico": "Heliconia angusta", "localizacao": "Corredor", "status": "Alerta: Lesmas/Pontas Secas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 28, "nome_popular": "Hortelã", "nome_cientifico": "Mentha spicata", "localizacao": "Hortaliças", "status": "Viçosa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 29, "nome_popular": "Manjericão", "nome_cientifico": "Ocimum basilicum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 30, "nome_popular": "Tomateiro", "nome_cientifico": "Solanum lycopersicum", "localizacao": "Hortaliças", "status": "Precisa Apoio", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 31, "nome_popular": "Cebolinha", "nome_cientifico": "Allium fistulosum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 32, "nome_popular": "Pimenta Malagueta", "nome_cientifico": "Capsicum frutescens", "localizacao": "Hortaliças", "status": "Crítico: Seca", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 33, "nome_popular": "Alpínia", "nome_cientifico": "Alpinia purpurata", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 34, "nome_popular": "Jabuticabeira", "nome_cientifico": "Plinia cauliflora", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 35, "nome_popular": "Ipê Amarelo", "nome_cientifico": "Handroanthus albus", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 36, "nome_popular": "Ipê Rosa", "nome_cientifico": "Handroanthus impetiginosus", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+  { "id": 37, "nome_popular": "Ipê Branco", "nome_cientifico": "Tabebuia roseo-alba", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" }
+]
