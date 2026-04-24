@@ -31,13 +31,15 @@
             margin: auto;
         }
 
-        h1, h2.location-header {
+        h1, h2 {
             color: var(--primary-color);
             text-align: center;
-            border-bottom: 2px solid var(--primary-color);
             padding-bottom: 10px;
             margin-bottom: 20px;
         }
+        
+        h1 { border-bottom: 2px solid var(--primary-color); }
+        h2.location-header { border-bottom: 1px solid var(--secondary-color); margin-top: 40px; }
 
         .controls {
             padding: 20px;
@@ -48,52 +50,48 @@
         }
 
         .search-box {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 5px;
-            font-size: 16px;
+            width: 100%; box-sizing: border-box; padding: 12px;
+            border: 1px solid var(--border-color); border-radius: 5px; font-size: 16px;
         }
         
         .summary-section {
-            padding: 20px;
-            background-color: var(--card-background);
-            border-radius: 8px;
-            box-shadow: 0 4px 12px var(--box-shadow-color);
+            padding: 25px; background-color: var(--card-background);
+            border-radius: 8px; box-shadow: 0 4px 12px var(--box-shadow-color);
             margin-bottom: 25px;
         }
-        .summary-section h2 { margin-top: 0; text-align: center; }
-
-        .cards-container {
+        .summary-section h2 { margin-top: 0; }
+        
+        .summary-table-container {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
             justify-content: center;
         }
 
+        .summary-table {
+            border-collapse: collapse;
+            margin-top: 15px;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+        }
+        .summary-table thead tr { background-color: var(--primary-color); color: white; text-align: center; }
+        .summary-table th, .summary-table td { padding: 12px 15px; border: 1px solid var(--border-color); }
+        .summary-table tbody tr { border-bottom: 1px solid #f0f0f0; }
+        .summary-table tbody tr:nth-of-type(even) { background-color: #f9f9f9; }
+        .summary-table tbody tr:hover { background-color: #f1f1f1; }
+
+        .cards-container { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+
         .plant-card {
-            background-color: var(--card-background);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px var(--box-shadow-color);
-            width: 280px;
-            display: flex;
-            flex-direction: column;
+            background-color: var(--card-background); border: 1px solid var(--border-color);
+            border-radius: 8px; box-shadow: 0 4px 8px var(--box-shadow-color);
+            width: 280px; display: flex; flex-direction: column;
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .plant-card:hover { transform: translateY(-5px); box-shadow: 0 8px 16px var(--box-shadow-color); }
 
         .card-image-container {
-            width: 100%;
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #f0f0f0;
-            border-top-left-radius: 8px;
-            border-top-right-radius: 8px;
-            overflow: hidden;
+            width: 100%; height: 200px; display: flex; align-items: center; justify-content: center;
+            background-color: #f0f0f0; border-top-left-radius: 8px; border-top-right-radius: 8px; overflow: hidden;
         }
         .card-image-container img { width: 100%; height: 100%; object-fit: cover; }
         .no-photo { font-style: italic; color: #888; }
@@ -102,12 +100,13 @@
         .card-content h3 { margin-top: 0; color: var(--primary-color); }
         .card-content p { margin: 5px 0; font-size: 14px; }
         .card-content .scientific-name { font-style: italic; color: #555; }
+        .card-content .update-date { font-size: 12px; color: #777; }
         
         .card-footer { padding: 15px; border-top: 1px solid #eee; }
         .search-btn {
-            background-color: #4A90E2; color: white; padding: 8px 12px;
-            border: none; border-radius: 4px; text-decoration: none;
-            font-size: 14px; cursor: pointer; display: block; text-align: center;
+            background-color: #4A90E2; color: white; padding: 8px 12px; border: none;
+            border-radius: 4px; text-decoration: none; font-size: 14px;
+            cursor: pointer; display: block; text-align: center;
         }
         .search-btn:hover { background-color: #357ABD; }
         
@@ -171,31 +170,21 @@
           { "id": 37, "nome_popular": "Ipê Branco", "nome_cientifico": "Tabebuia roseo-alba", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" }
         ];
 
-        const groupDataByLocation = () => {
-            return plantData.reduce((acc, plant) => {
-                const location = plant.localizacao;
-                if (!acc[location]) acc[location] = [];
-                acc[location].push(plant);
-                return acc;
-            }, {});
-        };
+        const groupDataByLocation = () => plantData.reduce((acc, plant) => {
+            (acc[plant.localizacao] = acc[plant.localizacao] || []).push(plant);
+            return acc;
+        }, {});
 
         const generateSummary = () => {
             const summaryContainer = document.getElementById('summary-container');
             const dataByLocation = groupDataByLocation();
             
-            let summaryHTML = '<h2>Resumo por Localização</h2><div class="table-wrapper"><table><thead><tr><th>Local</th><th>Plantas Mapeadas</th><th>Com Foto</th><th>Com Alerta</th></tr></thead><tbody>';
+            let summaryHTML = '<h2>Resumo do Jardim</h2><div class="summary-table-container"><table class="summary-table"><thead><tr><th>Localização</th><th>Plantas Mapeadas</th><th>Com Foto de Capa</th><th>Plantas com Alerta</th></tr></thead><tbody>';
             
             for (const location in dataByLocation) {
                 const plants = dataByLocation[location];
-                const total = plants.length;
-                const withPhoto = plants.filter(p => p.link_foto_real).length;
-                const withAlert = plants.filter(p => {
-                    const statusLower = p.status.toLowerCase();
-                    return statusLower.includes('alerta') || statusLower.includes('crítico') || statusLower.includes('manchas') || statusLower.includes('seca');
-                }).length;
-                
-                summaryHTML += `<tr><td>${location}</td><td>${total}</td><td>${withPhoto}</td><td>${withAlert}</td></tr>`;
+                const withAlert = plants.filter(p => /alerta|crítico|manchas|seca/i.test(p.status)).length;
+                summaryHTML += `<tr><td>${location}</td><td>${plants.length}</td><td>${plants.filter(p => p.link_foto_real).length}</td><td>${withAlert}</td></tr>`;
             }
             
             summaryHTML += '</tbody></table></div>';
@@ -208,46 +197,39 @@
             const dataByLocation = groupDataByLocation();
             
             for (const location in dataByLocation) {
-                const section = document.createElement('section');
-                let cardsHTML = `<h2 class="location-header">${location}</h2><div class="cards-container">`;
+                let sectionHTML = `<h2 class="location-header">${location}</h2><div class="cards-container">`;
                 
                 for (const plant of dataByLocation[location]) {
                     const encodedName = encodeURIComponent(plant.nome_cientifico);
-                    const googleSearchUrl = `https://www.google.com/search?tbm=isch&q=${encodedName}`;
-                    
                     let statusClass = '';
-                    if (plant.status.toLowerCase().includes('alerta')) statusClass = 'alerta';
-                    if (plant.status.toLowerCase().includes('crítico') || plant.status.toLowerCase().includes('seca')) statusClass = 'critico';
+                    if (/alerta/i.test(plant.status)) statusClass = 'alerta';
+                    if (/crítico|seca/i.test(plant.status)) statusClass = 'critico';
                     
-                    cardsHTML += `
+                    sectionHTML += `
                         <div class="plant-card" data-filter-content="${Object.values(plant).join(' ').toLowerCase()}">
                             <div class="card-image-container">
-                                ${plant.link_foto_real 
-                                    ? `<img src="${plant.link_foto_real}" alt="${plant.nome_popular}">`
-                                    : '<span class="no-photo">Sem Foto</span>'}
+                                ${plant.link_foto_real ? `<img src="${plant.link_foto_real}" alt="${plant.nome_popular}">` : '<span class="no-photo">Sem Foto</span>'}
                             </div>
                             <div class="card-content">
                                 <h3>${plant.nome_popular}</h3>
                                 <p class="scientific-name">${plant.nome_cientifico}</p>
                                 <p><strong>Status:</strong> <span class="status ${statusClass}">${plant.status}</span></p>
+                                <p class="update-date">Atualizado em: ${plant.ultima_atualizacao}</p>
                             </div>
                             <div class="card-footer">
-                                <a href="${googleSearchUrl}" target="_blank" class="search-btn">Ver Imagens</a>
+                                <a href="https://www.google.com/search?tbm=isch&q=${encodedName}" target="_blank" class="search-btn">Ver Imagens</a>
                             </div>
                         </div>`;
                 }
                 
-                cardsHTML += '</div>';
-                section.innerHTML = cardsHTML;
-                sectionsContainer.appendChild(section);
+                sectionsContainer.innerHTML += sectionHTML + '</div>';
             }
         };
 
         const filterContent = () => {
             const filter = document.getElementById('searchInput').value.toLowerCase();
             document.querySelectorAll('.plant-card').forEach(card => {
-                const content = card.getAttribute('data-filter-content');
-                card.style.display = content.includes(filter) ? '' : 'none';
+                card.style.display = card.getAttribute('data-filter-content').includes(filter) ? '' : 'none';
             });
         };
 
