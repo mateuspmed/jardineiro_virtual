@@ -25,9 +25,36 @@
             color: #2d6a4f;
             margin-top: 0;
         }
-        #summary, #filters {
-            text-align: center;
+        #summary {
             margin-bottom: 20px;
+            overflow-x: auto;
+        }
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+        .summary-table th, .summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        .summary-table th {
+            background-color: #d8f3dc;
+            color: #1b4332;
+        }
+        .summary-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .summary-table tfoot td {
+            font-weight: bold;
+            background-color: #e9ecef;
+        }
+        #filters {
+            text-align: center;
+            margin-bottom: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
         }
         #filters button {
             background-color: #2d6a4f;
@@ -88,9 +115,10 @@
             color: #1b4332;
         }
         .card-content p {
-            margin: 2px 0;
+            margin: 4px 0;
             font-size: 0.9em;
             color: #555;
+            line-height: 1.4;
         }
         .status-badge {
             padding: 4px 8px;
@@ -202,28 +230,60 @@
         }
 
         function generateSummary() {
-            const totalPlants = plantData.length;
-            const statusCounts = plantData.reduce((acc, plant) => {
-                // Simplificando o status para contagem
-                let simpleStatus = "Outro";
-                const lowerStatus = plant.status.toLowerCase();
-                if (lowerStatus.includes('saudável') || lowerStatus.includes('ativa') || lowerStatus.includes('viçosa')) simpleStatus = "Saudável";
-                else if (lowerStatus.includes('alerta') || lowerStatus.includes('verificar') || lowerStatus.includes('suspeita')) simpleStatus = "Alerta";
-                else if (lowerStatus.includes('crítico')) simpleStatus = "Crítico";
-                
-                acc[simpleStatus] = (acc[simpleStatus] || 0) + 1;
-                return acc;
-            }, {});
+            const locations = [...new Set(plantData.map(p => p.localizacao))].sort();
+            
+            let tableHtml = `<table class="summary-table">
+                <thead>
+                    <tr>
+                        <th>Local</th>
+                        <th>Qtd. Plantas</th>
+                        <th>Qtd. com Foto</th>
+                        <th>Qtd. em Alerta</th>
+                    </tr>
+                </thead>
+                <tbody>`;
 
-            let summaryHtml = `<b>Total de Plantas: ${totalPlants}</b> | `;
-            for (const [status, count] of Object.entries(statusCounts)) {
-                summaryHtml += `${status}: ${count} | `;
-            }
-            summaryContainer.innerHTML = summaryHtml.slice(0, -2); // Remove o último " | "
+            let totalPlants = 0;
+            let totalWithPhotos = 0;
+            let totalInAlert = 0;
+
+            locations.forEach(location => {
+                const plantsInLocation = plantData.filter(p => p.localizacao === location);
+                const countTotal = plantsInLocation.length;
+                const countWithPhoto = plantsInLocation.filter(p => p.link_foto_real && p.link_foto_real.trim() !== '').length;
+                const countInAlert = plantsInLocation.filter(p => {
+                    const lowerStatus = p.status.toLowerCase();
+                    return lowerStatus.includes('alerta') || lowerStatus.includes('crítico') || lowerStatus.includes('suspeita') || lowerStatus.includes('verificar');
+                }).length;
+
+                tableHtml += `<tr>
+                                <td>${location}</td>
+                                <td>${countTotal}</td>
+                                <td>${countWithPhoto}</td>
+                                <td>${countInAlert}</td>
+                             </tr>`;
+                
+                totalPlants += countTotal;
+                totalWithPhotos += countWithPhoto;
+                totalInAlert += countInAlert;
+            });
+
+            tableHtml += `</tbody>
+                <tfoot>
+                    <tr>
+                        <td>Total</td>
+                        <td>${totalPlants}</td>
+                        <td>${totalWithPhotos}</td>
+                        <td>${totalInAlert}</td>
+                    </tr>
+                </tfoot>
+            </table>`;
+            
+            summaryContainer.innerHTML = tableHtml;
         }
 
         function generateFilters() {
-            const locations = [...new Set(plantData.map(p => p.localizacao))];
+            const locations = [...new Set(plantData.map(p => p.localizacao))].sort();
             let filtersHtml = `<button onclick="renderPlants('all')">Exibir Todas</button>`;
             locations.forEach(location => {
                 filtersHtml += `<button onclick="renderPlants('${location}')">${location}</button>`;
@@ -239,7 +299,9 @@
                 return acc;
             }, {});
 
-            for (const location in groupedByLocation) {
+            const sortedLocations = Object.keys(groupedByLocation).sort();
+
+            sortedLocations.forEach(location => {
                 if (filter === 'all' || filter === location) {
                     const locationHeader = document.createElement('h2');
                     locationHeader.className = 'location-header';
@@ -248,7 +310,7 @@
 
                     groupedByLocation[location].forEach(planta => {
                         const hasActionPlan = planta.plano_de_acao && planta.plano_de_acao.trim() !== '';
-
+                        
                         let statusHtml = `
                             <span class="status-badge" style="background-color: ${getStatusColor(planta.status)}; color: white;">
                                 ${planta.status}
@@ -274,15 +336,11 @@
                                 <p><strong>Local:</strong> ${planta.localizacao}</p>
                                 <p><strong>Última Análise:</strong> ${planta.ultima_atualizacao}</p>
                                 <p><strong>Status:</strong> ${statusHtml}</p>
-                            </div>
-                        `;
-                        // O innerHTML não funciona bem com o <p> envolvendo o tooltip, então injetamos o nó de status no final.
-                        card.querySelector('.card-content p:last-child').innerHTML = '<strong>Status: </strong> ';
-                        card.querySelector('.card-content p:last-child').insertAdjacentHTML('beforeend', statusHtml);
+                            </div>`;
                         container.appendChild(card);
                     });
                 }
-            }
+            });
         }
 
         // Gera a visualização inicial
