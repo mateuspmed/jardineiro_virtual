@@ -157,6 +157,23 @@
              cursor: help;
              border-bottom: 1px dotted #000;
         }
+        .google-button {
+            display: inline-block;
+            background-color: #4285F4;
+            color: white !important;
+            padding: 8px 12px;
+            margin-top: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-align: center;
+            align-self: flex-start;
+            transition: background-color 0.2s;
+        }
+        .google-button:hover {
+            background-color: #357ae8;
+        }
     </style>
 </head>
 <body>
@@ -326,6 +343,8 @@
                                 </div>`;
                         }
 
+                        const googleSearchUrl = `https://www.google.com/search?tbm=isch&q=${encodeURIComponent(planta.nome_cientifico)}`;
+
                         const card = document.createElement('div');
                         card.className = 'card';
                         card.innerHTML = `
@@ -336,6 +355,7 @@
                                 <p><strong>Local:</strong> ${planta.localizacao}</p>
                                 <p><strong>Última Análise:</strong> ${planta.ultima_atualizacao}</p>
                                 <p><strong>Status:</strong> ${statusHtml}</p>
+                                <a href="${googleSearchUrl}" target="_blank" class="google-button">Procurar no Google Imagens</a>
                             </div>`;
                         container.appendChild(card);
                     });
