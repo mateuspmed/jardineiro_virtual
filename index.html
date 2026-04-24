@@ -12,9 +12,45 @@
             margin: 0;
             padding: 20px;
         }
+        .header-container {
+            max-width: 1600px;
+            margin: 0 auto 20px auto;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
         h1 {
             text-align: center;
             color: #2d6a4f;
+            margin-top: 0;
+        }
+        #summary, #filters {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #filters button {
+            background-color: #2d6a4f;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        #filters button:hover {
+            background-color: #1b4332;
+        }
+        .location-header {
+            width: 100%;
+            grid-column: 1 / -1;
+            padding: 10px;
+            background-color: #d8f3dc;
+            color: #1b4332;
+            border-radius: 5px;
+            margin-top: 20px;
+            margin-bottom: 10px;
         }
         .container {
             display: grid;
@@ -62,10 +98,7 @@
             font-size: 0.8em;
             font-weight: bold;
             display: inline-block;
-            margin-top: auto;
-            align-self: flex-start;
         }
-        /* Estilo do Tooltip */
         .tooltip-container {
             position: relative;
             display: inline-block;
@@ -80,14 +113,13 @@
             padding: 8px;
             position: absolute;
             z-index: 1;
-            bottom: 125%; /* Position above the status */
+            bottom: 125%;
             left: 50%;
-            margin-left: -125px; /* Use half of the width to center */
+            margin-left: -125px;
             opacity: 0;
             transition: opacity 0.3s;
             font-size: 0.85em;
             font-weight: normal;
-            white-space: normal;
         }
         .tooltip-container:hover .tooltip-text {
             visibility: visible;
@@ -101,9 +133,14 @@
 </head>
 <body>
 
-    <h1>Jardineiro Virtual - Relatório de Plantas</h1>
+    <div class="header-container">
+        <h1>Jardineiro Virtual - Relatório de Plantas</h1>
+        <div id="summary"></div>
+        <div id="filters"></div>
+    </div>
+
     <div class="container" id="plant-container">
-        <!-- Cards das plantas serão inseridos aqui via JavaScript -->
+        <!-- Cards das plantas serão inseridos aqui -->
     </div>
 
     <script>
@@ -147,52 +184,111 @@
           { "id": 37, "nome_popular": "Ipê Branco", "nome_cientifico": "Tabebuia roseo-alba", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "", "plano_de_acao": "" }
         ];
 
+        const container = document.getElementById('plant-container');
+        const summaryContainer = document.getElementById('summary');
+        const filtersContainer = document.getElementById('filters');
+
         function getStatusColor(status) {
             const lowerStatus = status.toLowerCase();
-            if (lowerStatus.includes('crítico') || lowerStatus.includes('alerta') || lowerStatus.includes('suspeita')) {
-                return '#ffc107'; // Amarelo/Laranja para alerta
-            } else if (lowerStatus.includes('saudável') || lowerStatus.includes('ativa')) {
-                return '#28a745'; // Verde para saudável
+            if (lowerStatus.includes('crítico') || lowerStatus.includes('suspeita')) {
+                return '#dc3545'; // Vermelho
+            } else if (lowerStatus.includes('alerta') || lowerStatus.includes('verificar')) {
+                return '#ffc107'; // Amarelo
+            } else if (lowerStatus.includes('saudável') || lowerStatus.includes('ativa') || lowerStatus.includes('viçosa')) {
+                return '#28a745'; // Verde
             } else {
-                return '#6c757d'; // Cinza para outros status
+                return '#6c757d'; // Cinza
             }
         }
 
-        const container = document.getElementById('plant-container');
+        function generateSummary() {
+            const totalPlants = plantData.length;
+            const statusCounts = plantData.reduce((acc, plant) => {
+                // Simplificando o status para contagem
+                let simpleStatus = "Outro";
+                const lowerStatus = plant.status.toLowerCase();
+                if (lowerStatus.includes('saudável') || lowerStatus.includes('ativa') || lowerStatus.includes('viçosa')) simpleStatus = "Saudável";
+                else if (lowerStatus.includes('alerta') || lowerStatus.includes('verificar') || lowerStatus.includes('suspeita')) simpleStatus = "Alerta";
+                else if (lowerStatus.includes('crítico')) simpleStatus = "Crítico";
+                
+                acc[simpleStatus] = (acc[simpleStatus] || 0) + 1;
+                return acc;
+            }, {});
 
-        plantData.forEach(planta => {
-            const hasActionPlan = planta.plano_de_acao && planta.plano_de_acao.trim() !== '';
-
-            // Status HTML com ou sem tooltip
-            let statusHtml = `
-                <span class="status-badge" style="background-color: ${getStatusColor(planta.status)}; color: white;">
-                    ${planta.status}
-                </span>`;
-
-            if (hasActionPlan) {
-                statusHtml = `
-                    <div class="tooltip-container">
-                        <span class="status-badge" style="background-color: ${getStatusColor(planta.status)}; color: white;" data-tooltip-active="true">
-                            ${planta.status}
-                        </span>
-                        <span class="tooltip-text">${planta.plano_de_acao}</span>
-                    </div>`;
+            let summaryHtml = `<b>Total de Plantas: ${totalPlants}</b> | `;
+            for (const [status, count] of Object.entries(statusCounts)) {
+                summaryHtml += `${status}: ${count} | `;
             }
+            summaryContainer.innerHTML = summaryHtml.slice(0, -2); // Remove o último " | "
+        }
 
-            const card = `
-                <div class="card">
-                    <img src="${planta.link_foto_real || 'https://via.placeholder.com/300x200.png?text=Sem+Imagem'}" alt="Foto de ${planta.nome_popular}" class="card-image">
-                    <div class="card-content">
-                        <h3>${planta.nome_popular} (ID: ${planta.id})</h3>
-                        <p><em>${planta.nome_cientifico}</em></p>
-                        <p><strong>Local:</strong> ${planta.localizacao}</p>
-                        <p><strong>Última Análise:</strong> ${planta.ultima_atualizacao}</p>
-                        <p><strong>Status:</strong> ${statusHtml}</p>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += card;
-        });
+        function generateFilters() {
+            const locations = [...new Set(plantData.map(p => p.localizacao))];
+            let filtersHtml = `<button onclick="renderPlants('all')">Exibir Todas</button>`;
+            locations.forEach(location => {
+                filtersHtml += `<button onclick="renderPlants('${location}')">${location}</button>`;
+            });
+            filtersContainer.innerHTML = filtersHtml;
+        }
+
+        function renderPlants(filter = 'all') {
+            container.innerHTML = '';
+            
+            const groupedByLocation = plantData.reduce((acc, plant) => {
+                (acc[plant.localizacao] = acc[plant.localizacao] || []).push(plant);
+                return acc;
+            }, {});
+
+            for (const location in groupedByLocation) {
+                if (filter === 'all' || filter === location) {
+                    const locationHeader = document.createElement('h2');
+                    locationHeader.className = 'location-header';
+                    locationHeader.textContent = location;
+                    container.appendChild(locationHeader);
+
+                    groupedByLocation[location].forEach(planta => {
+                        const hasActionPlan = planta.plano_de_acao && planta.plano_de_acao.trim() !== '';
+
+                        let statusHtml = `
+                            <span class="status-badge" style="background-color: ${getStatusColor(planta.status)}; color: white;">
+                                ${planta.status}
+                            </span>`;
+
+                        if (hasActionPlan) {
+                            statusHtml = `
+                                <div class="tooltip-container">
+                                    <span class="status-badge" style="background-color: ${getStatusColor(planta.status)}; color: white;" data-tooltip-active="true">
+                                        ${planta.status}
+                                    </span>
+                                    <span class="tooltip-text">${planta.plano_de_acao}</span>
+                                </div>`;
+                        }
+
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                            <img src="${planta.link_foto_real || 'https://via.placeholder.com/300x200.png?text=Sem+Imagem'}" alt="Foto de ${planta.nome_popular}" class="card-image">
+                            <div class="card-content">
+                                <h3>${planta.nome_popular} (ID: ${planta.id})</h3>
+                                <p><em>${planta.nome_cientifico}</em></p>
+                                <p><strong>Local:</strong> ${planta.localizacao}</p>
+                                <p><strong>Última Análise:</strong> ${planta.ultima_atualizacao}</p>
+                                <p><strong>Status:</strong> ${statusHtml}</p>
+                            </div>
+                        `;
+                        // O innerHTML não funciona bem com o <p> envolvendo o tooltip, então injetamos o nó de status no final.
+                        card.querySelector('.card-content p:last-child').innerHTML = '<strong>Status: </strong> ';
+                        card.querySelector('.card-content p:last-child').insertAdjacentHTML('beforeend', statusHtml);
+                        container.appendChild(card);
+                    });
+                }
+            }
+        }
+
+        // Gera a visualização inicial
+        generateSummary();
+        generateFilters();
+        renderPlants();
     </script>
 
 </body>
