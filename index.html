@@ -16,39 +16,42 @@
             max-width: 1200px;
             margin: 0 auto;
             background-color: #FFFFFF;
-            padding: 20px;
-            border-radius: 8px;
+            border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            padding: 20px 40px;
         }
         h1, h2 {
-            color: #2E8B57;
+            color: #2E8B57; /* SeaGreen */
             text-align: center;
-            border-bottom: 2px solid #D3D3D3;
+            border-bottom: 2px solid #F0F8F0;
             padding-bottom: 10px;
-        }
-        h2 {
-            margin-top: 40px;
+            margin-bottom: 20px;
         }
         .controls {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
         #searchInput {
-            width: 50%;
-            padding: 10px;
+            width: 80%;
+            max-width: 500px;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 5px;
+            border-radius: 25px;
             font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        #searchInput:focus {
+            outline: none;
+            border-color: #2E8B57;
+            box-shadow: 0 0 5px rgba(46, 139, 87, 0.5);
         }
         .summary-section {
-            margin: 30px auto;
-            display: flex;
-            justify-content: center;
+            margin-bottom: 40px;
         }
         .summary-table {
-            border-collapse: collapse;
             width: 80%;
-            margin: 0 auto;
+            margin: 20px auto;
+            border-collapse: collapse;
             box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .summary-table th, .summary-table td {
@@ -57,44 +60,43 @@
             text-align: left;
         }
         .summary-table th {
-            background-color: #3CB371;
+            background-color: #3CB371; /* MediumSeaGreen */
             color: white;
             text-align: center;
         }
         .summary-table tr:nth-child(even) {
             background-color: #f9f9f9;
         }
-        .summary-table td:not(:first-child) {
-            text-align: center;
+        .summary-table tr:hover {
+            background-color: #f1f1f1;
         }
-        .location-section {
+        .plant-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 25px;
         }
         .plant-card {
             background-color: #fff;
-            border: 1px solid #ddd;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
             display: flex;
             flex-direction: column;
-            transition: transform 0.2s;
         }
         .plant-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 12px rgba(0,0,0,0.15);
         }
         .card-image-container {
             width: 100%;
             height: 200px;
-            background-color: #f0f0f0;
+            background-color: #e0e0e0;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
             color: #888;
+            font-size: 16px;
         }
         .card-image-container img {
             width: 100%;
@@ -110,32 +112,37 @@
             margin-bottom: 5px;
             color: #2E8B57;
         }
-        .card-content p {
-            margin: 5px 0;
-        }
         .card-content .scientific-name {
             font-style: italic;
             color: #555;
             font-size: 0.9em;
+            margin-bottom: 10px;
         }
         .card-content .status {
+            padding: 4px 8px;
+            border-radius: 5px;
             font-weight: bold;
-            padding: 3px 8px;
-            border-radius: 4px;
+            font-size: 0.85em;
+            color: #fff;
             display: inline-block;
-            margin-top: 10px;
+            margin-bottom: 10px;
         }
-        .status.alerta { background-color: #FFC107; color: #333; }
-        .status.critico { background-color: #DC3545; color: white; }
-        .status.manchas { background-color: #FF9800; color: white; }
-        .status.saudavel { background-color: #28A745; color: white; }
-        .status.default { background-color: #6C757D; color: white; }
+        .status.saudavel { background-color: #3CB371; }
+        .status.alerta { background-color: #FFA500; } /* Orange */
+        .status.critico { background-color: #DC143C; } /* Crimson */
+        .status.manchas { background-color: #FF8C00; } /* DarkOrange */
+        .status.seca { background-color: #8B4513; } /* SaddleBrown */
+        .status.default { background-color: #708090; } /* SlateGray */
 
+        .card-content .update-date {
+            font-size: 0.8em;
+            color: #888;
+        }
         .card-footer {
             padding: 10px 15px;
-            background-color: #f7f7f7;
-            border-top: 1px solid #eee;
+            background-color: #f9f9f9;
             text-align: center;
+            border-top: 1px solid #eee;
         }
         .card-footer a {
             text-decoration: none;
@@ -144,6 +151,7 @@
             padding: 8px 15px;
             border-radius: 5px;
             transition: background-color 0.2s;
+            display: block;
         }
         .card-footer a:hover {
             background-color: #2E8B57;
@@ -154,64 +162,65 @@
 
     <div class="container">
         <h1>Catálogo de Plantas</h1>
-        
+
         <div class="controls">
-            <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Buscar por nome ou localização...">
+            <input type="text" id="searchInput" onkeyup="filterContent()" placeholder="Buscar por nome, local ou status...">
         </div>
 
-        <div class="summary-section" id="summarySection">
-            <!-- Tabela de resumo será gerada aqui -->
+        <div class="summary-section">
+            <h2>Resumo Geral</h2>
+            <div style="overflow-x:auto;">
+                <table id="summaryTable" class="summary-table"></table>
+            </div>
         </div>
 
-        <main id="catalogBody">
-            <!-- Seções e cards serão gerados aqui -->
-        </main>
+        <main id="plantContainer"></main>
     </div>
 
     <script>
         const plantData = [
-          { "id": 1, "nome_popular": "Clusia", "nome_cientifico": "Clusia rosea", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 2, "nome_popular": "Bromélia Imperial", "nome_cientifico": "Alcantarea imperialis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 3, "nome_popular": "Babosa", "nome_cientifico": "Aloe vera", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 4, "nome_popular": "Agave Atenuata", "nome_cientifico": "Agave attenuata", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 5, "nome_popular": "Helicônia", "nome_cientifico": "Heliconia psittacorum", "localizacao": "Jardim de Trás", "status": "Verificar Manchas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 6, "nome_popular": "Cróton", "nome_cientifico": "Codiaeum variegatum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 7, "nome_popular": "Guaimbê", "nome_cientifico": "Philodendron bipinnatifidum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 8, "nome_popular": "Costela-de-Adão", "nome_cientifico": "Monstera deliciosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 9, "nome_popular": "Orelha-de-Elefante", "nome_cientifico": "Alocasia macrorrhizos", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 10, "nome_popular": "Dracena Fragrans", "nome_cientifico": "Dracaena fragrans", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 11, "nome_popular": "Iresine", "nome_cientifico": "Iresine herbstii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 12, "nome_popular": "Lírio da Paz", "nome_cientifico": "Spathiphyllum wallisii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 13, "nome_popular": "Jiboia", "nome_cientifico": "Epipremnum aureum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+          { "id": 1, "nome_popular": "Clusia", "nome_cientifico": "Clusia rosea", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/clusia.jpg" },
+          { "id": 2, "nome_popular": "Bromélia Imperial", "nome_cientifico": "Alcantarea imperialis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/bromelia_imperial.jpg" },
+          { "id": 3, "nome_popular": "Babosa", "nome_cientifico": "Aloe vera", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/babosa.jpg" },
+          { "id": 4, "nome_popular": "Agave Atenuata", "nome_cientifico": "Agave attenuata", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/agave.jpg" },
+          { "id": 5, "nome_popular": "Helicônia", "nome_cientifico": "Heliconia psittacorum", "localizacao": "Jardim de Trás", "status": "Verificar Manchas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/heliconia_flor.jpg" },
+          { "id": 6, "nome_popular": "Cróton", "nome_cientifico": "Codiaeum variegatum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/croton.jpg" },
+          { "id": 7, "nome_popular": "Guaimbê", "nome_cientifico": "Philodendron bipinnatifidum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/guaimbe.jpg" },
+          { "id": 8, "nome_popular": "Costela-de-Adão", "nome_cientifico": "Monstera deliciosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/costela_adao.jpg" },
+          { "id": 9, "nome_popular": "Orelha-de-Elefante", "nome_cientifico": "Alocasia macrorrhizos", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/orelha_elefante.jpg" },
+          { "id": 10, "nome_popular": "Dracena Fragrans", "nome_cientifico": "Dracaena fragrans", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_fragans.jpg" },
+          { "id": 11, "nome_popular": "Iresine", "nome_cientifico": "Iresine herbstii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/iresine.jpg" },
+          { "id": 12, "nome_popular": "Lírio da Paz", "nome_cientifico": "Spathiphyllum wallisii", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/lirio_paz.jpg" },
+          { "id": 13, "nome_popular": "Jiboia", "nome_cientifico": "Epipremnum aureum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/jiboia.jpg" },
           { "id": 14, "nome_popular": "Antúrio Vermelho", "nome_cientifico": "Anthurium andraeanum", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/anturio_vermelho.jpeg" },
-          { "id": 15, "nome_popular": "Dracena Chocolate", "nome_cientifico": "Cordyline fruticosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 16, "nome_popular": "Léia-rubra", "nome_cientifico": "Leea guineensis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 17, "nome_popular": "Onze-horas", "nome_cientifico": "Portulaca grandiflora", "localizacao": "Jardim da Frente", "status": "Floração Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+          { "id": 15, "nome_popular": "Dracena Chocolate", "nome_cientifico": "Cordyline fruticosa", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_chocolate.jpg" },
+          { "id": 16, "nome_popular": "Léia-rubra", "nome_cientifico": "Leea guineensis", "localizacao": "Jardim de Trás", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/leia_rubra.jpg" },
+          { "id": 17, "nome_popular": "Onze-horas", "nome_cientifico": "Portulaca grandiflora", "localizacao": "Jardim da Frente", "status": "Floração Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/onze_horas.jpg" },
           { "id": 18, "nome_popular": "Pitangueira", "nome_cientifico": "Eugenia uniflora", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/pitangueira.jpg" },
           { "id": 19, "nome_popular": "Sapatinho de Judia", "nome_cientifico": "Thunbergia mysorensis", "localizacao": "Jardim da Frente", "status": "Ativa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/sapatinho_judia.jpg" },
           { "id": 20, "nome_popular": "Goiabeira", "nome_cientifico": "Psidium guajava", "localizacao": "Jardim da Frente", "status": "Com Frutos", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/goiabeira.jpg" },
-          { "id": 21, "nome_popular": "Palmeira Jerivá", "nome_cientifico": "Syagrus romanzoffiana", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+          { "id": 21, "nome_popular": "Palmeira Jerivá", "nome_cientifico": "Syagrus romanzoffiana", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/palmeira_jeriva.jpg" },
           { "id": 22, "nome_popular": "Yucca", "nome_cientifico": "Yucca gigantea", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/yucca.jpg" },
           { "id": 23, "nome_popular": "Dólar Variegado", "nome_cientifico": "Plectranthus coleoides", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dolar_variegado.jpg" },
           { "id": 24, "nome_popular": "Cacto Rabo de Macaco", "nome_cientifico": "Hildewintera colademononis", "localizacao": "Jardim da Frente", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/cacto_macarrao.jpg" },
           { "id": 25, "nome_popular": "Dracena Madagascar", "nome_cientifico": "Dracaena marginata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/dracena_madagascar.jpg" },
-          { "id": 26, "nome_popular": "Hera-roxa", "nome_cientifico": "Hemigraphis alternata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 27, "nome_popular": "Helicônia Garrancho", "nome_cientifico": "Heliconia angusta", "localizacao": "Corredor", "status": "Alerta: Lesmas/Pontas Secas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 28, "nome_popular": "Hortelã", "nome_cientifico": "Mentha spicata", "localizacao": "Hortaliças", "status": "Viçosa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 29, "nome_popular": "Manjericão", "nome_cientifico": "Ocimum basilicum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 30, "nome_popular": "Tomateiro", "nome_cientifico": "Solanum lycopersicum", "localizacao": "Hortaliças", "status": "Precisa Apoio", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 31, "nome_popular": "Cebolinha", "nome_cientifico": "Allium fistulosum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 32, "nome_popular": "Pimenta Malagueta", "nome_cientifico": "Capsicum frutescens", "localizacao": "Hortaliças", "status": "Crítico: Seca", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 33, "nome_popular": "Alpínia", "nome_cientifico": "Alpinia purpurata", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
-          { "id": 34, "nome_popular": "Jabuticabeira", "nome_cientifico": "Plinia cauliflora", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
+          { "id": 26, "nome_popular": "Hera-roxa", "nome_cientifico": "Hemigraphis alternata", "localizacao": "Corredor", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/hera_roxa.jpg" },
+          { "id": 27, "nome_popular": "Helicônia Garrancho", "nome_cientifico": "Heliconia angusta", "localizacao": "Corredor", "status": "Alerta: Lesmas/Pontas Secas", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/heliconia_garrancho.jpg" },
+          { "id": 28, "nome_popular": "Hortelã", "nome_cientifico": "Mentha spicata", "localizacao": "Hortaliças", "status": "Viçosa", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/hortela.jpg" },
+          { "id": 29, "nome_popular": "Manjericão", "nome_cientifico": "Ocimum basilicum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/manjericao.jpg" },
+          { "id": 30, "nome_popular": "Tomateiro", "nome_cientifico": "Solanum lycopersicum", "localizacao": "Hortaliças", "status": "Precisa Apoio", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/tomateiro.jpg" },
+          { "id": 31, "nome_popular": "Cebolinha", "nome_cientifico": "Allium fistulosum", "localizacao": "Hortaliças", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/cebolinha.jpg" },
+          { "id": 32, "nome_popular": "Pimenta Malagueta", "nome_cientifico": "Capsicum frutescens", "localizacao": "Hortaliças", "status": "Crítico: Seca", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/pimenta_malagueta.jpg" },
+          { "id": 33, "nome_popular": "Alpínia", "nome_cientifico": "Alpinia purpurata", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/alpinia.jpg" },
+          { "id": 34, "nome_popular": "Jabuticabeira", "nome_cientifico": "Plinia cauliflora", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "https://cdn.jsdelivr.net/gh/mateuspmed/jardineiro_virtual/garden_photos/jabuticabeira.jpg" },
           { "id": 35, "nome_popular": "Ipê Amarelo", "nome_cientifico": "Handroanthus albus", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
           { "id": 36, "nome_popular": "Ipê Rosa", "nome_cientifico": "Handroanthus impetiginosus", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" },
           { "id": 37, "nome_popular": "Ipê Branco", "nome_cientifico": "Tabebuia roseo-alba", "localizacao": "Calçada Externa", "status": "Saudável", "ultima_atualizacao": "23/04/2026", "link_foto_real": "" }
         ];
 
         document.addEventListener('DOMContentLoaded', () => {
-            generateSummary(plantData);
-            generateContent(plantData);
+            generateSummary();
+            renderPlants();
         });
 
         function getStatusClass(status) {
@@ -219,108 +228,110 @@
             if (lowerCaseStatus.includes('crítico')) return 'critico';
             if (lowerCaseStatus.includes('alerta')) return 'alerta';
             if (lowerCaseStatus.includes('manchas')) return 'manchas';
-            if (lowerCaseStatus.includes('seca')) return 'critico';
+            if (lowerCaseStatus.includes('seca')) return 'seca';
             if (lowerCaseStatus.includes('saudável')) return 'saudavel';
             return 'default';
         }
 
-        function generateSummary(data) {
-            const summarySection = document.getElementById('summarySection');
-            const locations = [...new Set(data.map(item => item.localizacao))].sort();
+        function generateSummary() {
+            const summaryTable = document.getElementById('summaryTable');
+            const locations = [...new Set(plantData.map(p => p.localizacao))];
             const alertKeywords = ["alerta", "crítico", "manchas", "seca"];
 
             let tableHTML = `
-                <table class="summary-table">
-                    <thead>
-                        <tr>
-                            <th>Localização</th>
-                            <th>Plantas Mapeadas</th>
-                            <th>Com Foto de Capa</th>
-                            <th>Plantas com Alerta</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-            `;
+                <thead>
+                    <tr>
+                        <th>Localização</th>
+                        <th>Plantas Mapeadas</th>
+                        <th>Com Foto</th>
+                        <th>Com Alerta</th>
+                    </tr>
+                </thead>
+                <tbody>`;
 
             locations.forEach(location => {
-                const plantsInLocation = data.filter(p => p.localizacao === location);
-                const totalPlants = plantsInLocation.length;
-                const withCoverPhoto = plantsInLocation.filter(p => p.link_foto_real).length;
-                const withAlert = plantsInLocation.filter(p => alertKeywords.some(key => p.status.toLowerCase().includes(key))).length;
-                
+                const plantsInLocation = plantData.filter(p => p.localizacao === location);
+                const total = plantsInLocation.length;
+                const withPhoto = plantsInLocation.filter(p => p.link_foto_real).length;
+                const withAlert = plantsInLocation.filter(p => 
+                    alertKeywords.some(key => p.status.toLowerCase().includes(key))
+                ).length;
+
                 tableHTML += `
                     <tr>
                         <td>${location}</td>
-                        <td>${totalPlants}</td>
-                        <td>${withCoverPhoto}</td>
+                        <td>${total}</td>
+                        <td>${withPhoto}</td>
                         <td>${withAlert}</td>
-                    </tr>
-                `;
+                    </tr>`;
             });
-
-            tableHTML += `
-                    </tbody>
-                </table>
-            `;
-            summarySection.innerHTML = tableHTML;
+            
+            tableHTML += '</tbody>';
+            summaryTable.innerHTML = tableHTML;
         }
 
-        function generateContent(data) {
-            const catalogBody = document.getElementById('catalogBody');
-            catalogBody.innerHTML = "";
-            const groupedByLocation = data.reduce((acc, plant) => {
-                (acc[plant.localizacao] = acc[plant.localizacao] || []).push(plant);
-                return acc;
-            }, {});
+        function renderPlants() {
+            const plantContainer = document.getElementById('plantContainer');
+            const locations = [...new Set(plantData.map(p => p.localizacao))];
 
-            const sortedLocations = Object.keys(groupedByLocation).sort();
+            plantContainer.innerHTML = ''; // Limpa o container
 
-            sortedLocations.forEach(location => {
-                let sectionHTML = `
-                    <section>
-                        <h2>${location}</h2>
-                        <div class="location-section" id="location-${location.replace(/\s+/g, '-')}">
-                `;
+            locations.forEach(location => {
+                const section = document.createElement('section');
+                section.id = `location-${location.replace(/\s+/g, '-')}`;
 
-                groupedByLocation[location].forEach(plant => {
-                    const statusClass = getStatusClass(plant.status);
-                    
-                    sectionHTML += `
-                        <div class="plant-card" data-search-term="${plant.nome_popular.toLowerCase()} ${plant.nome_cientifico.toLowerCase()} ${plant.localizacao.toLowerCase()}">
-                            <div class="card-image-container">
-                                ${plant.link_foto_real 
-                                    ? `<img src="${plant.link_foto_real}" alt="Foto de ${plant.nome_popular}">` 
-                                    : '<span>Sem Foto</span>'}
-                            </div>
-                            <div class="card-content">
-                                <h3>${plant.nome_popular}</h3>
-                                <p class="scientific-name">${plant.nome_cientifico}</p>
-                                <p><strong>Status:</strong> <span class="status ${statusClass}">${plant.status}</span></p>
-                                <p><small>Atualizado em: ${plant.ultima_atualizacao}</small></p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="https://www.google.com/search?tbm=isch&q=${encodeURIComponent(plant.nome_cientifico)}" target="_blank" rel="noopener noreferrer">Ver Imagens</a>
-                            </div>
-                        </div>
+                const title = document.createElement('h2');
+                title.textContent = location;
+                section.appendChild(title);
+
+                const grid = document.createElement('div');
+                grid.className = 'plant-grid';
+
+                const plantsInLocation = plantData.filter(p => p.localizacao === location);
+
+                plantsInLocation.forEach(plant => {
+                    const card = document.createElement('div');
+                    card.className = 'plant-card';
+
+                    const imageContainer = document.createElement('div');
+                    imageContainer.className = 'card-image-container';
+                    if (plant.link_foto_real) {
+                        imageContainer.innerHTML = `<img src="${plant.link_foto_real}" alt="${plant.nome_popular}">`;
+                    } else {
+                        imageContainer.textContent = 'Sem Foto';
+                    }
+
+                    const content = document.createElement('div');
+                    content.className = 'card-content';
+                    content.innerHTML = `
+                        <h3>${plant.nome_popular}</h3>
+                        <p class="scientific-name">${plant.nome_cientifico}</p>
+                        <p><span class="status ${getStatusClass(plant.status)}">${plant.status}</span></p>
+                        <p class="update-date">Atualizado em: ${plant.ultima_atualizacao}</p>
                     `;
+                    
+                    const footer = document.createElement('div');
+                    footer.className = 'card-footer';
+                    footer.innerHTML = `<a href="https://www.google.com/search?q=${encodeURIComponent(plant.nome_cientifico)}&tbm=isch" target="_blank">Ver Imagens</a>`;
+
+                    card.appendChild(imageContainer);
+                    card.appendChild(content);
+                    card.appendChild(footer);
+                    grid.appendChild(card);
                 });
 
-                sectionHTML += `
-                        </div>
-                    </section>
-                `;
-                catalogBody.innerHTML += sectionHTML;
+                section.appendChild(grid);
+                plantContainer.appendChild(section);
             });
         }
 
         function filterContent() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
+            const filter = document.getElementById('searchInput').value.toLowerCase();
             const cards = document.querySelectorAll('.plant-card');
-
+            
             cards.forEach(card => {
-                const searchTerm = card.getAttribute('data-search-term');
-                if (searchTerm.includes(filter)) {
+                const cardText = card.textContent || card.innerText;
+                if (cardText.toLowerCase().indexOf(filter) > -1) {
                     card.style.display = "";
                 } else {
                     card.style.display = "none";
